@@ -1,0 +1,117 @@
+.emails-editor {
+  box-sizing: border-box;
+  background: #fff;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.emails-editor__main {
+  padding: 32px 50px 24px;
+  background: #f8f8f7;
+  border-radius: 8px 8px 0 0;
+}
+.emails-editor__main h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 27px;
+}
+.emails-editor__area {
+  box-sizing: border-box;
+  min-height: 96px;
+  margin-top: 24px;
+  padding: 8px 7px;
+  font-size: 14px;
+  background: #ffffff;
+  border: 1px solid #c3c2cf;
+  border-radius: 4px;
+}
+.emails-editor__chip {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  height: 24px;
+  max-width: 100%;
+  padding-left: 10px;
+  padding-right: 24px;
+  margin-right: 4px;
+  margin-bottom: 3px;
+  line-height: 24px;
+  background-color: rgba(102, 153, 255, 0.2);
+  border-radius: 12px;
+}
+.emails-editor__delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+.emails-editor__delete:hover {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.emails-editor__input-wrap {
+  position: relative;
+  display: inline-flex;
+  height: 24px;
+  max-width: 100%;
+  margin: 0 13px 3px 10px;
+  line-height: 24px;
+}
+.emails-editor__input-wrap i {
+  font-style: normal;
+}
+.emails-editor__input-wrap input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: inherit;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  background: none;
+  border: none;
+}
+.emails-editor__input-wrap input:focus {
+  outline: none;
+}
+
+.emails-editor__controls {
+  padding: 8px 50px 32px;
+}
+
+.emails-editor button {
+  padding: 7px 17px;
+  margin: 16px 16px 0 0;
+  color: #fff;
+  font-size: 14px;
+  line-height: 24px;
+  background: #4262ff;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.emails-editor button:hover {
+  background: #0f38ff;
+}
+.emails-editor button:focus {
+  outline: none;
+}
+.emails-editor button:active {
+  color: #4262ff;
+  background: #fff;
+  border-color: #4262ff;
+}
+.emails-editor button:last-child {
+  margin-right: 0;
+}

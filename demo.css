@@ -3,6 +3,7 @@ body {
   flex-direction: column;
   justify-content: center;
   height: 100vh;
+  min-width: 320px;
   margin: 0;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -15,9 +16,12 @@ h1 {
 }
 
 .container {
+  box-sizing: border-box;
+  flex: auto 1 0;
+  width: 100%;
+  max-width: 960px;
   margin: auto;
   padding: 0 8px;
-  max-width: 960px;
 }
 
 .header {
@@ -27,7 +31,9 @@ h1 {
   border-bottom: 2px solid #050038;
 }
 .content {
+  display: flex;
   flex: auto 1 0;
+  flex-direction: column;
   padding: 40px 0;
 }
 .footer {
@@ -37,7 +43,39 @@ h1 {
   text-align: center;
 }
 
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 16px;
+  margin-top: 40px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.group:first-child {
+  margin-top: 0;
+}
+
 .trigger {
+  padding: 8px 16px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 24px;
   background: #4262ff;
   border-radius: 6px;
+  cursor: pointer;
+}
+
+.group:first-child {
+  margin-top: 0;
+}
+.expo {
+  width: 100%;
+  margin-top: 40px;
+}
+.expo:first-child {
+  margin-top: 0;
+}
+.expo--narrow {
+  max-width: 540px;
 }

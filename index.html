@@ -12,6 +12,7 @@
     <title>Klimov Evgenii</title>
 
     <script src="lib.js"></script>
+    <link rel="stylesheet" href="lib.css" />
   </head>
   <body>
     <div class="header">
@@ -21,8 +22,20 @@
     </div>
     <div class="content">
       <div class="container">
-        <div id="emails-editor"></div>
-        <div id="emails-editor2"></div>
+        <div class="group">
+          <div id="editor0" class="trigger">Trigger 1</div>
+          <div id="editor2" class="trigger">
+            Trigger 2 (pretty wide button. Wide enough to display the
+            EmailEditor in it's full width)
+          </div>
+        </div>
+
+        <div class="group">
+          <div id="editor3" class="expo">Full-width container:</div>
+          <div id="editor4" class="expo expo--narrow">
+            Container with a limited max-width:
+          </div>
+        </div>
       </div>
     </div>
     <div class="footer">
@@ -32,12 +45,13 @@
     </div>
 
     <script>
-      const container = document.querySelector("#emails-editor");
+      const qs = document.querySelector.bind(document);
       const options = {
-        x: 1
+        minWidth: 540,
+        onChange: data => console.log(data)
       };
-      new EmailsEditor({ container, ...options });
-      // some code to control emails via library
+      new EmailsEditor({ ...options, container: qs("#editor3") });
+      new EmailsEditor({ ...options, container: qs("#editor4") });
     </script>
   </body>
 </html>
