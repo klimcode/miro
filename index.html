@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="demo.css" />
+    <title>Klimov Evgenii</title>
+
+    <script src="lib.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <h1>Miro <b>EmailEditor</b> component demo</h1>
+      </div>
+    </div>
+    <div class="content">
+      <div class="container">
+        <div id="emails-editor"></div>
+        <div id="emails-editor2"></div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        © 2020 Miro
+      </div>
+    </div>
+
+    <script>
+      const container = document.querySelector("#emails-editor");
+      const options = {
+        x: 1
+      };
+      new EmailsEditor({ container, ...options });
+      // some code to control emails via library
+    </script>
+  </body>
+</html>
