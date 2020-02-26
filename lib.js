@@ -13,11 +13,17 @@
     if (parent) parent.appendChild(el);
     return el;
   };
+  const createWrap = (onclick) => {
+    const wrap = addChild("", "span", "emails-editor");
+    wrap.onclick = onclick; 
+    return wrap;
+  };
   const createChip = (parent, email) => {
-    const chip = addChild(parent, "div", "emails-editor__chip");
-    const chipText = addChild(chip, "span", "", email);
-    const btnDelete = addChild(chip, "div", "emails-editor__delete", "×");
-    return { chip, chipText, btnDelete };
+    const chip = addChild(parent, "span", "emails-editor__chip");
+    addChild(chip, "span", "emails-editor__chip-expander", email);
+    const btnDelete = addChild(chip, "i", "", "×");
+    btnDelete.dataset.email = email;
+    return chip;
   };
 
   window.EmailsEditor = function(options) {
@@ -25,34 +31,37 @@
       ...defOptions,
       ...options
     };
-    let chips = {};
-    let emailList = emails || [];
+    let chips = {}; // the Virtual-DOM :)
+    let isMounted = false;
+    let emailList = [...emails] || [];
 
-    const wrap = addChild("", "div", "emails-editor");
-    const main = addChild(wrap, "div", "emails-editor__main");
-    const h3 = addChild(main, "h3", "", `Share ${boardName} with others`);
-    const area = addChild(main, "div", "emails-editor__area");
-    const inputWrap = addChild(area, "div", "emails-editor__input-wrap");
+    const clickHandler = ({ target }) => {
+      const data = target.dataset || {};
+      if (data.email) delete chips[data.email]
+      console.log(target.dataset);
+    }
+    const inputWrap = addChild("", "span", "emails-editor__input-wrap");
     const input = addChild(inputWrap, "input");
     const expander = addChild(inputWrap, "i", "", "add more people…");
-    const controls = addChild(wrap, "div", "emails-editor__controls");
-    const btnAdd = addChild(controls, "button", "", "Add email");
-    const btnCount = addChild(controls, "button", "", "Get emails count");
 
-    const renderList = parent => {
-      parent.innerText = "";
+    const renderList = () => {
       chips = {};
-      const fragment = document.createDocumentFragment();
+      const parent = createWrap(clickHandler);
 
-      emailList.forEach(email => {
-        chips[email] = createChip(fragment, email);
-      });
-      fragment.appendChild(inputWrap);
-      parent.appendChild(fragment);
+      emailList.forEach((email, i) => chips[email] = createChip(parent, email));
+      parent.appendChild(inputWrap);
+
+      if (!isMounted) {
+        // Initial render puts all children to *wrap* because it's not yet mounted to DOM  
+        container.appendChild(parent);
+      } else {
+        // Rerender collects all children in the just created Wrapper to replace the mounted one
+        // only 1 repaint is required to update the whole email-editor
+        container.replaceChild(parent, wrap);
+      }
     };
 
-    if (emailList.length) renderList(area);
-    container.appendChild(wrap);
+    renderList();
 
     this.getList = () => emailList;
     this.setList = array => {

@@ -15,25 +15,32 @@
     <link rel="stylesheet" href="lib.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="header">
+    <div class="header">
+      <div class="container">
         <h1>Miro <b>EmailEditor</b> component demo</h1>
       </div>
     </div>
     <div class="content">
       <div class="container">
-        <div class="group">
-          <div id="editor0" class="trigger">Trigger 1</div>
-          <div id="editor2" class="trigger">
-            Trigger 2 (pretty wide button. Wide enough to display the
-            EmailEditor in it's full width)
+        <div class="form form--narrow">
+          <div class="form__main">
+            <h3>Share <b>Board name</b> with others</h3>
+            <div id="editor0" class="form__area"></div>
+          </div>
+          <div class="form__controls">
+            <button>Add email</button>
+            <button>Get emails count</button>
           </div>
         </div>
 
-        <div class="group">
-          <div id="editor3" class="expo">Full-width container:</div>
-          <div id="editor4" class="expo expo--narrow">
-            Container with a limited max-width:
+        <div class="form">
+          <div class="form__main">
+            <h3>Share <b>Board name</b> with others</h3>
+            <div id="editor1" class="form__area"></div>
+          </div>
+          <div class="form__controls">
+            <button>Add email</button>
+            <button>Get emails count</button>
           </div>
         </div>
       </div>
@@ -50,12 +57,12 @@
         minWidth: 540,
         onChange: data => console.log(data)
       };
-      const editor3 = new EmailsEditor({
+      const editor0 = new EmailsEditor({
         ...options,
         emails: ["aa@a.ru", "bbb@b.ru"],
-        container: qs("#editor3")
+        container: qs("#editor0")
       });
-      new EmailsEditor({ ...options, container: qs("#editor4") });
+      new EmailsEditor({ ...options, container: qs("#editor1") });
     </script>
   </body>
 </html>

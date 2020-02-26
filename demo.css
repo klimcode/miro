@@ -43,39 +43,67 @@ h1 {
   text-align: center;
 }
 
-.group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 16px;
+.form {
+  box-sizing: border-box;
+  width: 100%;
   margin-top: 40px;
-  border: 1px solid #ddd;
+  background: #fff;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
 }
-.group:first-child {
+.form:first-child {
   margin-top: 0;
 }
+.form--narrow {
+  max-width: 540px;
+}
 
-.trigger {
-  padding: 8px 16px;
+.form__main {
+  padding: 32px 50px 24px;
+  background: #f8f8f7;
+  border-radius: 8px 8px 0 0;
+}
+.form__main h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 27px;
+}
+.form__area {
+  box-sizing: border-box;
+  height: 96px;
+  margin-top: 24px;
+  font-size: 14px;
+  background: #ffffff;
+  border: 1px solid #c3c2cf;
+  border-radius: 4px;
+}
+
+.form__controls {
+  padding: 8px 50px 32px;
+}
+.form__controls button {
+  padding: 7px 17px;
+  margin: 16px 16px 0 0;
   color: #fff;
   font-size: 14px;
   line-height: 24px;
   background: #4262ff;
+  border: 1px solid transparent;
   border-radius: 6px;
   cursor: pointer;
 }
-
-.group:first-child {
-  margin-top: 0;
+.form__controls button:hover {
+  background: #0f38ff;
 }
-.expo {
-  width: 100%;
-  margin-top: 40px;
+.form__controls button:focus {
+  outline: none;
 }
-.expo:first-child {
-  margin-top: 0;
+.form__controls button:active {
+  color: #4262ff;
+  background: #fff;
+  border-color: #4262ff;
 }
-.expo--narrow {
-  max-width: 540px;
+.form__controls button:last-child {
+  margin-right: 0;
 }
