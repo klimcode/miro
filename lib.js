@@ -44,7 +44,7 @@
     const className =
       "emails-editor__chip" + (isValid ? "" : " emails-editor__chip--invalid");
     const chip = addChild(parent, "span", className);
-    addChild(chip, "span", "emails-editor__chip-expander", email);
+    chip.innerText = email;
     const btnDelete = addChild(chip, "i", "", "×");
     btnDelete.dataset.email = email;
     return chip;
