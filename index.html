@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="lib.css" />
   </head>
   <body>
-    <div class="header">
-      <div class="container">
+    <div class="container">
+      <div class="header">
         <h1>Miro <b>EmailEditor</b> component demo</h1>
       </div>
     </div>
@@ -50,7 +50,11 @@
         minWidth: 540,
         onChange: data => console.log(data)
       };
-      new EmailsEditor({ ...options, container: qs("#editor3") });
+      const editor3 = new EmailsEditor({
+        ...options,
+        emails: ["aa@a.ru", "bbb@b.ru"],
+        container: qs("#editor3")
+      });
       new EmailsEditor({ ...options, container: qs("#editor4") });
     </script>
   </body>

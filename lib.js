@@ -10,20 +10,28 @@
     const el = createElement(nodeName);
     if (className) el.className = className;
     if (text) el.innerText = text;
-    parent.appendChild(el);
+    if (parent) parent.appendChild(el);
     return el;
+  };
+  const createChip = (parent, email) => {
+    const chip = addChild(parent, "div", "emails-editor__chip");
+    const chipText = addChild(chip, "span", "", email);
+    const btnDelete = addChild(chip, "div", "emails-editor__delete", "×");
+    return { chip, chipText, btnDelete };
   };
 
   window.EmailsEditor = function(options) {
-    const { container, boardName, onChange } = { ...defOptions, ...options };
-    const wrap = createElement("div");
-    wrap.className = "emails-editor";
+    const { container, boardName, emails, onChange } = {
+      ...defOptions,
+      ...options
+    };
+    let chips = {};
+    let emailList = emails || [];
 
+    const wrap = addChild("", "div", "emails-editor");
     const main = addChild(wrap, "div", "emails-editor__main");
     const h3 = addChild(main, "h3", "", `Share ${boardName} with others`);
     const area = addChild(main, "div", "emails-editor__area");
-    const chip = addChild(area, "div", "emails-editor__chip", "test@chip.ru");
-    const btnDelete = addChild(chip, "div", "emails-editor__delete", "×");
     const inputWrap = addChild(area, "div", "emails-editor__input-wrap");
     const input = addChild(inputWrap, "input");
     const expander = addChild(inputWrap, "i", "", "add more people…");
@@ -31,7 +39,26 @@
     const btnAdd = addChild(controls, "button", "", "Add email");
     const btnCount = addChild(controls, "button", "", "Get emails count");
 
+    const renderList = parent => {
+      parent.innerText = "";
+      chips = {};
+      const fragment = document.createDocumentFragment();
+
+      emailList.forEach(email => {
+        chips[email] = createChip(fragment, email);
+      });
+      fragment.appendChild(inputWrap);
+      parent.appendChild(fragment);
+    };
+
+    if (emailList.length) renderList(area);
     container.appendChild(wrap);
-    console.log(wrap);
+
+    this.getList = () => emailList;
+    this.setList = array => {
+      emailList = array;
+      renderList();
+    };
+    return this;
   };
 })();
