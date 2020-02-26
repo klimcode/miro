@@ -28,8 +28,8 @@
             <div id="editor0" class="form__area"></div>
           </div>
           <div class="form__controls">
-            <button>Add email</button>
-            <button>Get emails count</button>
+            <button id="editor0__new">Add email</button>
+            <button id="editor0__count">Get emails count</button>
           </div>
         </div>
 
@@ -54,14 +54,15 @@
     <script>
       const qs = document.querySelector.bind(document);
       const options = {
-        minWidth: 540,
         onChange: data => console.log(data)
       };
       const editor0 = new EmailsEditor({
         ...options,
-        emails: ["aa@a.ru", "bbb@b.ru"],
+        emails: ["aa@a.ru", "bbb@b.ru", "sss"],
         container: qs("#editor0")
       });
+      qs("#editor0__new").onclick = editor0.addNew;
+
       new EmailsEditor({ ...options, container: qs("#editor1") });
     </script>
   </body>
