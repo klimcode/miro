@@ -57,14 +57,31 @@
       const editor0 = new EmailsEditor({
         container: qs("#editor0"),
         emails: ["aa@a.ru", "bbb@b.ru", "sss"],
-        onChange: data => console.log(data),
+        onChange: function(data) {
+          console.log(data);
+        }
       });
       qs("#editor0__new").onclick = editor0.appendRandom;
-      qs("#editor0__count").onclick = () => alert(editor0.getCount());
+      qs("#editor0__count").onclick = function() {
+        alert(editor0.getCount());
+      };
 
       const editor1 = new EmailsEditor({ container: qs("#editor1") });
       qs("#editor1__new").onclick = editor1.appendRandom;
-      qs("#editor1__count").onclick = () => alert(editor1.getCount());
+      qs("#editor1__count").onclick = function() {
+        alert(editor1.getCount());
+      };
+
+      editor1.setEmails(["a", "bunch", "of strings", "and test@email.ru"]);
+      editor1.appendRandom();
+      console.log(editor1.getCount());
+      editor1.deleteEmail("test@email.ru");
+      console.log(editor1.getCount());
+      editor1.append("test54@email.ru   , test55@email.ru");
+      console.log(editor1.getEmails());
+      console.log(editor1);
+      editor1.destroy();
+      editor1.setEmails();
     </script>
   </body>
 </html>

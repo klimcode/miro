@@ -37,10 +37,10 @@
   const createWrap = (editor, input) => {
     const wrap = createElement("", "span", "emails-editor");
     const bg = createElement(wrap, "span", "emails-editor__background");
-    bg.onmousedown = (e) => {
+    bg.onmousedown = e => {
       e.preventDefault();
       input.focus();
-    }
+    };
     return wrap;
   };
   const createChip = (parent, email, onDelete) => {
@@ -58,74 +58,82 @@
   const createInput = (editor, inputWrap) => {
     const expander = createElement(inputWrap, "i", "");
     const input = createElement(inputWrap, "input");
-    const syncInput = string => input.value = expander.innerText = string;
+    const syncInput = string => (input.value = expander.innerText = string);
     const submit = value => {
       if (!value || value === initialInputText) return;
       editor.append(value);
-      syncInput('');
-    }
+      syncInput("");
+    };
 
     syncInput(initialInputText);
-    input.onfocus = () => syncInput('');
+    input.onfocus = () => syncInput("");
     input.onpaste = () => setTimeout(() => submit(input.value), 50);
     input.onblur = ({ target }) => {
       submit(target.value);
       syncInput(initialInputText);
-    }
-    input.onkeydown = (e) => {
+    };
+    input.onkeydown = e => {
       const { key, target } = e;
-      if (key === 'Enter' || key === ',') {
+      if (key === "Enter" || key === ",") {
         e.preventDefault();
         submit(target.value);
-      }
-      else expander.innerText = target.value;
-    }
+      } else expander.innerText = target.value;
+    };
     return input;
   };
 
   window.EmailsEditor = function(options) {
-    const { container, emails, onChange } = {
+    const { container = document.body, emails, onChange } = {
       ...defOptions,
       ...options
     };
     let isMounted = false;
     let chips; // the Virtual DOM :)
+    let wrap; // main Element
     const inputWrap = createElement("", "span", "emails-editor__input-wrap");
     const input = createInput(this, inputWrap);
-    const wrap = createWrap(this, input);
     const onDelete = ({ target }) => this.deleteEmail(target.dataset.email);
 
     const renderAll = (array = []) => {
       chips = new Map();
 
-      // Initially *wrap* is used as the Parent.
-      // It's fast enough to append elements into it while it's not mounted.
-      // But when it's mounted a new Parent should be created
-      const parent = isMounted ? createWrap(chips, input) : wrap;
+      const oldWrap = wrap;
+      wrap = createWrap(chips, input);
 
-      array.forEach(email => {
+      const preparedArray = parse(array.join(" "));
+      preparedArray.forEach(email => {
         if (!email || chips.get(email)) return;
-        chips.set(email, createChip(parent, email, onDelete));
+        chips.set(email, createChip(wrap, email, onDelete));
       });
-      parent.appendChild(inputWrap);
+      wrap.appendChild(inputWrap);
 
       if (!isMounted) {
         // Initial render puts all children to *wrap* because it's not yet mounted to DOM
-        container.appendChild(parent);
+        container.appendChild(wrap);
         isMounted = true;
       } else {
         // Rerender collects all children in the just created Wrapper to replace the mounted one
         // only 1 repaint is required to update the whole email-editor
-        container.replaceChild(parent, wrap);
+        container.replaceChild(wrap, oldWrap);
       }
     };
     renderAll(emails);
 
     // Public methods
     this.setEmails = renderAll;
-    this.getEmails = () => Array.from(chips.keys());
-    this.getCount = () => Array.from(chips.keys()).reduce((acc, email) => validate(email) ? acc + 1 : acc, 0);
+    this.getEmails = () => {
+      if (!isMounted) return;
+      return Array.from(chips.keys());
+    };
+    this.getCount = () => {
+      if (!isMounted) return;
+      return Array.from(chips.keys()).reduce(
+        (acc, email) => (validate(email) ? acc + 1 : acc),
+        0
+      );
+    };
     this.append = string => {
+      if (!isMounted) return;
       if (!string) return;
       const array = parse(string);
       if (!array[0]) return;
@@ -139,6 +147,7 @@
       onChange(this.getEmails());
     };
     this.appendRandom = () => {
+      if (!isMounted) return;
       const email = makeRandom(this.getEmails());
       const fragment = document.createDocumentFragment();
       const chip = createChip(fragment, email, onDelete);
@@ -148,12 +157,20 @@
       onChange(this.getEmails());
     };
     this.deleteEmail = email => {
+      if (!isMounted) return;
       const chipElem = chips.get(email);
+      if (!chipElem) return;
       wrap.removeChild(chipElem);
       chips.delete(email);
 
       onChange(this.getEmails());
-    }
+    };
+    this.destroy = () => {
+      if (!isMounted) return;
+      chips = undefined;
+      container.removeChild(wrap);
+      isMounted = false;
+    };
     return this;
   };
 })();
