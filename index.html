@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="demo.css" />
     <title>Klimov Evgenii</title>
 
-    <script src="lib.js"></script>
-    <link rel="stylesheet" href="lib.css" />
+    <script src="emails-editor.min.js"></script>
+    <link rel="stylesheet" href="emails-editor.min.css" />
   </head>
   <body>
     <div class="header">
@@ -39,8 +39,8 @@
             <div id="editor1" class="form__area"></div>
           </div>
           <div class="form__controls">
-            <button>Add email</button>
-            <button>Get emails count</button>
+            <button id="editor1__new">Add email</button>
+            <button id="editor1__count">Get emails count</button>
           </div>
         </div>
       </div>
@@ -53,17 +53,18 @@
 
     <script>
       const qs = document.querySelector.bind(document);
-      const options = {
-        onChange: data => console.log(data)
-      };
-      const editor0 = new EmailsEditor({
-        ...options,
-        emails: ["aa@a.ru", "bbb@b.ru", "sss"],
-        container: qs("#editor0")
-      });
-      qs("#editor0__new").onclick = editor0.addNew;
 
-      new EmailsEditor({ ...options, container: qs("#editor1") });
+      const editor0 = new EmailsEditor({
+        container: qs("#editor0"),
+        emails: ["aa@a.ru", "bbb@b.ru", "sss"],
+        onChange: data => console.log(data),
+      });
+      qs("#editor0__new").onclick = editor0.appendRandom;
+      qs("#editor0__count").onclick = () => alert(editor0.getCount());
+
+      const editor1 = new EmailsEditor({ container: qs("#editor1") });
+      qs("#editor1__new").onclick = editor1.appendRandom;
+      qs("#editor1__count").onclick = () => alert(editor1.getCount());
     </script>
   </body>
 </html>

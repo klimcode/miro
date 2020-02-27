@@ -1,0 +1,25 @@
+{
+  "name": "EmailEditor",
+  "version": "1.0.0",
+  "description": "Miro EmailEditor demo",
+  "main": "emails-editor.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klimcode/miro.git"
+  },
+  "author": "Evgenii Klimov",
+  "license": "ISC",
+  "homepage": "https://github.com/klimcode/miro#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "@babel/preset-env": "^7.8.6",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.1.1",
+    "uglifycss": "0.0.29",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}

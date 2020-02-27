@@ -56,6 +56,7 @@ h1 {
 }
 .form--narrow {
   max-width: 540px;
+  margin: auto;
 }
 
 .form__main {
@@ -98,6 +99,8 @@ h1 {
 }
 .form__controls button:focus {
   outline: none;
+  border-color: #fff;
+  border-style: dotted;
 }
 .form__controls button:active {
   color: #4262ff;

@@ -1,7 +1,10 @@
 .emails-editor {
+  position: relative;
   box-sizing: border-box;
-  display: block;
+  display: flex;
   flex: auto 1 0;
+  flex-wrap: wrap;
+  align-content: flex-start;
   width: 100%;
   min-width: 80px;
   height: 100%;
@@ -10,17 +13,25 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+.emails-editor__background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 
 .emails-editor__chip {
   position: relative;
+  z-index: 1;
   box-sizing: border-box;
-  display: inline-block;
+  display: block;
   height: 24px;
   max-width: 100%;
   padding-left: 10px;
   padding-right: 24px;
   margin-right: 4px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
   line-height: 24px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -53,13 +64,18 @@
 
 .emails-editor__input-wrap {
   position: relative;
-  display: inline-flex;
+  z-index: 1;
+  display: block;
   height: 24px;
-  max-width: 100%;
-  margin: 0 13px 3px 10px;
+  max-width: calc(100% - 20px);
+  margin: 0 10px;
   line-height: 24px;
 }
 .emails-editor__input-wrap i {
+  display: block;
+  min-width: 20px;
+  margin-right: 16px;
+  visibility: hidden;
   font-style: normal;
 }
 .emails-editor__input-wrap input {
