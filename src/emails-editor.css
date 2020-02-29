@@ -57,6 +57,9 @@
   cursor: pointer;
   user-select: none;
 }
+.emails-editor__chip i:before {
+  content: "×";
+}
 .emails-editor__chip i:hover {
   font-size: 18px;
   font-weight: bold;

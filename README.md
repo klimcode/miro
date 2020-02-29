@@ -1,6 +1,6 @@
 # Miro EmailsEditor
 
-A tiny (under 2KB Gzipped) library to handle email lists.
+A tiny (under 3KB Gzipped) library to handle email lists.
 
 ## Easy to use
 
@@ -13,21 +13,31 @@ A tiny (under 2KB Gzipped) library to handle email lists.
 ```html
 <head>
   <!-- other stuff... -->
-  <script src="emails-editor.min.js"></script>
-  <link rel="stylesheet" href="emails-editor.min.css" />
+  <script src="emails-editor.js"></script>
+  <link rel="stylesheet" href="emails-editor.css" />
 </head>
+<body>
+  <div id="emails"></div>
+</body>
 ```
 
 ```js
-new EmailsEditor({ container: document.querySelector("#emails") });
+const Editor = emailsEditor.default;
+new Editor({ container: document.querySelector("#emails") });
 ```
 
-The library exposes the `EmailsEditor` constructor, which can be accessed directly or as a property of `window`.
+The library exposes the `EmailsEditor` constructor in an ES6 module. There are 2 ways to import it:
+
+- as a node module: `import EmailsEditor from 'emails-editor'`
+- as a `script tag`, so the constructor can be found here: `window.emailsEditor.default`.
+
 Once called, the constructor mounts the Editor into the container (Editor is built of inline elements only: `span`, `input`, `i`).
 The constructor receives the object of options.
-It's recommended to specify the container elemtns in the options otherwise the Editor is mounted straight to `document.body`.
+It's recommended to specify the container element in the options otherwise the Editor is mounted straight to `document.body`.
 The container should have a minimal size of `80px x 43px` otherwise the Editor will overflow a bit.
 The Editor tries to occupy all container's inner space, but will fail to do it sometimes (e.g. if the parent is a `block` with only `min-height` specified)
+
+### Don't forget to import the `emails-editor.css` file.
 
 ## Usage
 
@@ -40,8 +50,9 @@ Any word or email (or just "chip") can be deleted by pressing the `x` button att
 ## Advanced installation
 
 ```js
+const Editor = emailsEditor.default;
 const container = document.querySelector("#emails");
-const editor = new EmailsEditor({
+const editor = new Editor({
   container,
   emails: ["aa@bb.ru", "cc12@dd.ru", "invalid-email"],
   onChange: emails => console.log(emails)

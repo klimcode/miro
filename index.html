@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="demo.css" />
     <title>Klimov Evgenii</title>
 
-    <script src="emails-editor.min.js"></script>
-    <link rel="stylesheet" href="emails-editor.min.css" />
+    <script src="dist/emails-editor.js"></script>
+    <link rel="stylesheet" href="dist/emails-editor.css" />
   </head>
   <body>
     <div class="header">
@@ -53,8 +53,9 @@
 
     <script>
       const qs = document.querySelector.bind(document);
+      const Editor = emailsEditor.default;
 
-      const editor0 = new EmailsEditor({
+      const editor0 = new Editor({
         container: qs("#editor0"),
         emails: ["aa@a.ru", "bbb@b.ru", "sss"],
         onChange: function(data) {
@@ -66,22 +67,22 @@
         alert(editor0.getCount());
       };
 
-      const editor1 = new EmailsEditor({ container: qs("#editor1") });
+      const editor1 = new Editor({ container: qs("#editor1") });
       qs("#editor1__new").onclick = editor1.appendRandom;
       qs("#editor1__count").onclick = function() {
         alert(editor1.getCount());
       };
 
-      editor1.setEmails(["a", "bunch", "of strings", "and test@email.ru"]);
+      editor1.emails = ["a", "bunch", "of strings", "and test@email.ru"];
       editor1.appendRandom();
       console.log(editor1.getCount());
       editor1.deleteEmail("test@email.ru");
       console.log(editor1.getCount());
       editor1.append("test54@email.ru   , test55@email.ru");
-      console.log(editor1.getEmails());
+      console.log(editor1.emails);
       console.log(editor1);
       editor1.destroy();
-      editor1.setEmails();
+      editor1.emails = [];
     </script>
   </body>
 </html>
