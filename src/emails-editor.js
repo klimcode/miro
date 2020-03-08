@@ -1,4 +1,4 @@
-// import "./emails-editor.css";
+import css from "./css";
 
 const noop = () => {};
 const defOptions = {
@@ -70,8 +70,8 @@ function Core(options) {
     }
   };
   this.createWrap = () => {
-    return createElement("", "span", "emails-editor", wrap => {
-      createElement(wrap, "span", "emails-editor__background", bg => {
+    return createElement("", "span", css.wrap, wrap => {
+      createElement(wrap, "span", css.wrapBg, bg => {
         bg.onmousedown = e => {
           e.preventDefault();
           this.inputElem.focus();
@@ -81,8 +81,7 @@ function Core(options) {
   };
   this.createChip = (parent, email) => {
     const isValid = validate(email);
-    const className =
-      "emails-editor__chip" + (isValid ? "" : " emails-editor__chip--invalid");
+    const className = css.chip + (isValid ? "" : " " + css.chipInvalid);
     const _chip = createElement(parent, "span", className, chip => {
       chip.textContent = email;
 
@@ -95,7 +94,7 @@ function Core(options) {
     return _chip;
   };
   this.createInput = () => {
-    this.inputWrap = createElement("", "span", "emails-editor__input-wrap");
+    this.inputWrap = createElement("", "span", css.input);
     const expander = createElement(this.inputWrap, "i");
     const input = createElement(this.inputWrap, "input");
 
